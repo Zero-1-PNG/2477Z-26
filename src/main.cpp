@@ -1,7 +1,4 @@
 #include "main.h"
-#include "shift.cpp"
-#include "doinker.cpp"
-#include "autons.cpp"
 
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -57,7 +54,7 @@ void initialize() {
   // Set the drive to your own constants from autons.cpp!
 
 
-  default_constants(); // Sets up the chassis PID and motion constants for the drive system. 8/7/26
+  // default_constants(); // Sets up the chassis PID and motion constants for the drive system. 8/7/26
 
 
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
