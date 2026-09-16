@@ -245,6 +245,11 @@ void opcontrol() {
   ez_template_extras();
   
   chassis.opcontrol_tank();  // Tank control 8/5/26
+    // chassis.opcontrol_arcade_standard(ez::SPLIT);  // Standard split arcade
+    // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
+    // chassis.opcontrol_arcade_flipped(ez::SPLIT);  // Flipped split arcade
+    // chassis.opcontrol_arcade_flipped(ez::SINGLE);  // Flipped single arcade\
+    
   shift_opcontrol(); // shift Control 8/6/26
   doinker_opcontrol(); // Piston Control 8/7/26
   doinker_control(); // Claw Control 8/7/26

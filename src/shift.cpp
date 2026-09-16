@@ -13,18 +13,12 @@ void shift_opcontrol() {
     set_left_input(-127);
     set_right_input(127);
   }
-  else {
-    set_left_input(0);;
-    set_right_input(0);
-  }
-
-  if (master.get_digital(DIGITAL_R2)) {
-    set_right_input(-127);
+  else if (master.get_digital(DIGITAL_R2)) {
     set_left_input(127);
+    set_right_input(-127);
   }
   else {
-    set_right_input(0);
     set_left_input(0);
+    set_right_input(0);
   }
 }
-
