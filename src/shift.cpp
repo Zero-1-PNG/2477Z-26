@@ -10,11 +10,11 @@ void set_right_input(int shift) {
 
 void shift_opcontrol() {
   if (master.get_digital(DIGITAL_R1)) {
-    set_left_input(-127);
+    set_left_input(127);
     set_right_input(127);
   }
   else if (master.get_digital(DIGITAL_R2)) {
-    set_left_input(127);
+    set_left_input(-127);
     set_right_input(-127);
   }
   else {

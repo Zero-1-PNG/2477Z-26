@@ -15,9 +15,17 @@ const int SWING_SPEED = 120;
 // . . .
 
 void SoloAWP() {
-  // . . .
-  // Autonomous code goes here
-  // . . .
+
+  chassis.drive_imu_reset(); 
+  chassis.drive_sensor_reset(); 
+  chassis.drive_brake_set(MOTOR_BRAKE_HOLD); 
+
+  chassis.pid_turn_set(90_deg, 110);
+  chassis.pid_wait_until(45_deg);
+  chassis.pid_speed_max_set(127);
+  chassis.pid_drive_set(24_in, 127);
+  chassis.pid_wait();
+
 }
 
 void ScoreRingsPlatDown() {
