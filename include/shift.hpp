@@ -8,4 +8,5 @@ inline pros::Motor right_shift(-10); // Two small gears for the intake: make it 
 
 void set_left_input(int shift);
 void set_right_input(int shift);
+
 void shift_opcontrol();

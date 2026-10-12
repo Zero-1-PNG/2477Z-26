@@ -23,5 +23,3 @@ void shift_opcontrol() {
     set_right_input(0);
   }
 }
-
-// could i use ez :: Drive chassis in a else if function using C++ to control the speed of two motors even though those motors were dfined in another function

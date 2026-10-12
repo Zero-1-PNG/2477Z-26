@@ -4,8 +4,11 @@
 // https://ez-robotics.github.io/EZ-Template/
 /////
 int lift = true;
+ez::tracking_wheel horiz_tracker(14, 2, 4);
+
 // Chassis constructor
 ez::Drive chassis(
+
     // These are your drive motors, the first motor is used for sensing!
     {-7, -6, -9, -8, -10},     // right Chassis Ports (negative port will reverse it!)
     {4, 5, 2, 3, 1},  // left Chassis Ports (negative port will reverse it!)
@@ -19,8 +22,6 @@ ez::Drive chassis(
 //  - you should get positive values on the encoders going FORWARD and RIGHT
 // - `2.75` is the wheel diameter
 // - `4.0` is the distance from the center of the wheel to the center of the robot
-// ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
-// ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -29,18 +30,20 @@ ez::Drive chassis(
  * to keep execution time for this mode under a few seconds.
  */
 
-// ez::PID liftPID(0.45, 0.0, 0.0, "Lift"); : work in progress! 8/5/26
-
 void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
+  // Horizontal wheel on the left side of the bot center 10/2/26
+  // Add LiftPID to the PID Tuner
+
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
   //  - change `back` to `front` if the tracking wheel is in front of the midline
   //  - ignore this if you aren't using a horizontal tracker
- // chassis.odom_tracker_back_set(&horiz_tracker);
+ chassis.odom_tracker_back_set(&horiz_tracker);
+
   // Look at your vertical tracking wheel and decide if it's to the left or right of the center of the robot
   //  - change `left` to `right` if the tracking wheel is to the right of the centerline
   //  - ignore this if you aren't using a vertical tracker
@@ -54,8 +57,11 @@ void initialize() {
   // Set the drive to your own constants from autons.cpp!
 
 
-  // default_constants(); // Sets up the chassis PID and motion constants for the drive system. 8/7/26
-
+   default_constants(); // Sets up the chassis PID and motion constants for the drive system. 8/7/26
+  // P, I, D, and start I
+chassis.pid_drive_constants_forward_set(20.0, 0.0, 100.0);
+chassis.pid_drive_constants_backward_set(20.0, 0.0, 100.0);
+  
 
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
   chassis.opcontrol_curve_buttons_left_set(pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT);  // If using tank, only the left side is used.
@@ -253,6 +259,8 @@ void opcontrol() {
   shift_opcontrol(); // shift Control 8/6/26
   doinker_opcontrol(); // Piston Control 8/7/26
   doinker_control(); // Claw Control 8/7/26
+  // Call the shift task function
+    shift_task();
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
