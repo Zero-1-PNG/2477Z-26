@@ -1,4 +1,7 @@
 #include "main.h"
+#include "EZ-Template/api.hpp"
+#include "PTO Giver.hpp"
+using namespace ez;
 
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -239,6 +242,24 @@ void ez_template_extras() {
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+// User control code
+void intake_control() {
+  if (master.get_digital_new_press(DIGITAL_DOWN)) {
+    pto_toggle_intake(!pto_intake_enabled);
+  } 
+
+  if (master.get_digital(DIGITAL_L1)) {
+    set_intake(127);
+  }
+  else if (master.get_digital(DIGITAL_L2)) {
+    set_intake(-127);
+  }
+  else {
+    set_intake(0);
+  }
+}
+
 void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
@@ -257,10 +278,10 @@ void opcontrol() {
     // chassis.opcontrol_arcade_flipped(ez::SINGLE);  // Flipped single arcade\
     
   shift_opcontrol(); // shift Control 8/6/26
-  doinker_opcontrol(); // Piston Control 8/7/26
+  // doinker_opcontrol(); // Piston Control 8/7/26
   doinker_control(); // Claw Control 8/7/26
-  // Call the shift task function
-    shift_task();
+
+  lift_control(); // Lift PTO Control 8/16/26
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
