@@ -48,6 +48,7 @@
 #include "subsystems.hpp"
 #include "shift.hpp"
 #include "doinker.hpp"
+#include "PTOG.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -64,6 +65,7 @@ using namespace ez;
 
 // Toggle motors from PTO, toggle piston, switch brake modes
 void pto_toggle();
+void set_lift(int input);
 using namespace okapi::literals;
 
 /**

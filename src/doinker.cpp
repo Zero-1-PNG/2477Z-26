@@ -2,24 +2,24 @@
 
 // Adjust port letters to match the parts
 
-// void set_lower_input(bool input) {
- // lower_doinker.set(input);
-// }
-void set_upper_input(bool input) {
-  upper_doinker.set(input);
-}
+// might get replaced by PTO 10/20/26 -  void set_lower_input(bool input) {
+// might get replaced by PTO 10/20/26 -  lower_doinker.set(input);
+// might get replaced by PTO 10/20/26 - }
+// might get replaced by PTO 10/20/26 - void set_upper_input(bool input) {
+// might get replaced by PTO 10/20/26 -   upper_doinker.set(input);
+// might get replaced by PTO 10/20/26 - }
 
-// void doinker_opcontrol() {
-  // Left doinker toggles with L1
-// if (master.get_digital_new_press(DIGITAL_L1)) {
-  // lower_doinker.set(!lower_doinker.get());
-// } 
-// }
-// Changes being made for the PTO 10/16
+// might get replaced by PTO 10/20/26 - void doinker_opcontrol() {
+ // might get replaced by PTO 10/20/26 - Left doinker toggles with L1
+// might get replaced by PTO 10/20/26 - if (master.get_digital_new_press(DIGITAL_L1)) {
+// might get replaced by PTO 10/20/26 -   lower_doinker.set(!lower_doinker.get());
+// might get replaced by PTO 10/20/26 - } 
+// might get replaced by PTO 10/20/26 -  }
 
-void doinker_control() {
+
+// might get replaced by PTO 10/20/26 - void doinker_control() {
   // Right doinker toggles with L2
-  if (master.get_digital_new_press(DIGITAL_L2)) {
-    upper_doinker.set(!upper_doinker.get());
-  }
-}
+  // might get replaced by PTO 10/20/26 - if (master.get_digital_new_press(DIGITAL_L2)) {
+  // might get replaced by PTO 10/20/26 -   upper_doinker.set(!upper_doinker.get());
+  // might get replaced by PTO 10/20/26 - }
+  // might get replaced by PTO 10/20/26 - }
