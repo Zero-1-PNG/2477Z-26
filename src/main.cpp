@@ -12,7 +12,7 @@ ez::Drive chassis(
 
     // These are your drive motors, the first motor is used for sensing!
     {-7, -6, -9, -8, -10},     // right Chassis Ports (negative port will reverse it!)
-    {4, 5, 2, 3, 1},  // left Chassis Ports (negative port will reverse it!)
+    {4, 15, 2, 16, 1},  // left Chassis Ports (negative port will reverse it!)
 
     20,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -253,17 +253,48 @@ void opcontrol() {
     // Gives you some extras to make EZ-Template ezier
   ez_template_extras();
   
-  chassis.opcontrol_tank();  // Tank control 8/5/26
-    // chassis.opcontrol_arcade_standard(ez::SPLIT);  // Standard split arcade
-    // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
-    // chassis.opcontrol_arcade_flipped(ez::SPLIT);  // Flipped split arcade
-    // chassis.opcontrol_arcade_flipped(ez::SINGLE);  // Flipped single arcade\
+        // Read joystick values for Tank Drive
+        int left_joystick = master.get_analog(ANALOG_LEFT_Y);
+        int right_joystick = master.get_analog(ANALOG_RIGHT_Y);
+
+        if (!pto_lift_enabled) {
+            // NORMAL DRIVING: All 5 motors on each side respond to the joysticks
+            pros::Motor(4).move(left_joystick);
+            pros::Motor(15).move(left_joystick);   
+            pros::Motor(2).move(left_joystick);
+            pros::Motor(16).move(left_joystick);   
+            
+            // INVERTED DRIVE DIRECTION FOR MOTOR 1:
+            pros::Motor(1).move(-left_joystick);    
+
+            pros::Motor(7).move(right_joystick);  // Kept positive port here
+            pros::Motor(6).move(right_joystick);
+            pros::Motor(9).move(right_joystick);
+            pros::Motor(8).move(right_joystick);
+            
+            // INVERTED DRIVE DIRECTION FOR MOTOR 10:
+            pros::Motor(10).move(-right_joystick); 
+        } else {
+            // LIFT MODE IS ON: Joysticks ONLY power the other 4 drive motors.
+            // Port 1 and Port 10 are completely ignored by the joysticks!
+            pros::Motor(4).move(left_joystick);
+            pros::Motor(15).move(left_joystick);   
+            pros::Motor(2).move(left_joystick);
+            pros::Motor(16).move(left_joystick);   
+
+            pros::Motor(7).move(right_joystick);
+            pros::Motor(6).move(right_joystick);
+            pros::Motor(9).move(right_joystick);
+            pros::Motor(8).move(right_joystick);
+        }
+        
+        // This must run every frame to listen for L1/L2 and R1/R2 buttons
+ lift_control(); // LIFT PTO Control 8/16/26
     
-    // might get replaced by PTO 10/20/26 - shift_opcontrol(); // shift Control 8/6/26
+    // might get replaced by PTO 10/20/26 - 
+    // shift_opcontrol(); // shift Control 8/6/26
   // might get replaced by PTO 10/20/26 - doinker_opcontrol(); // Piston Control 8/7/26
    // might get replaced by PTO 10/20/26 -  doinker_control(); // Claw Control 8/7/26
-
-  lift_control(); // Lift PTO Control 8/16/26
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }

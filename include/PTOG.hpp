@@ -9,6 +9,7 @@ inline pros::Motor right_lift_motor(-10); // Right Lift Motor
 inline pros::adi::DigitalOut claw_piston('A'); // Replace 'A' with the actual port used for the claw piston
 inline pros::adi::DigitalOut pto_lift_piston('B'); // Replace 'B' with the actual port used for the PTO lift piston
 
+
 extern bool pto_lift_enabled; // PTO Lift Mode State
 extern bool claw_enabled; // Claw Clamp State
 
