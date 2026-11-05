@@ -4,25 +4,29 @@
 // https://ez-robotics.github.io/EZ-Template/
 /////
 int lift = true;
+
+ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
+ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
+
 // Chassis constructor
-ez::Drive chassis(
+ez::Drive chassis (
     // These are your drive motors, the first motor is used for sensing!
     {-7, -6, -9, -8, -10},     // right Chassis Ports (negative port will reverse it!)
     {4, 5, 2, 3, 1},  // left Chassis Ports (negative port will reverse it!)
 
     20,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
-    600);  // Wheel RPM = cartridge * (motor gear / wheel gear)
+    600,  // Wheel RPM = cartridge * (motor gear / wheel gear)
 
 // Uncomment the trackers you're using here!
 // - `8` and `9` are smart ports (making these negative will reverse the sensor)
 //  - you should get positive values on the encoders going FORWARD and RIGHT
 // - `2.75` is the wheel diameter
 // - `4.0` is the distance from the center of the wheel to the center of the robot
-// ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
-// ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
 
-/**
+ez::CompactOdom(&vert_tracker, &horiz_tracker)   // Pointer to vertical tracker  // Pointer to horizontal tracker
+)
+  /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
@@ -34,6 +38,9 @@ ez::Drive chassis(
 void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
+
+  l_lift.tare_position();
+  liftPID.exit_condition_set(80, 50, 300, 150, 500, 500);
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
@@ -113,6 +120,17 @@ void autonomous() {
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
+
+
+  liftPID.target_set(500);
+  // You can do stuff here and it'll happen while the lift moves
+  lift_wait();  // Wait for the lift to reach its target
+
+  pros::delay(1000);
+
+  liftPID.target_set(0);
+  // You can do stuff here and it'll happen while the lift moves
+  lift_wait();  // Wait for the lift to reach its target
 
   /*
   Odometry and Pure Pursuit are not magic
@@ -233,17 +251,31 @@ void ez_template_extras() {
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-void opcontrol() {
+
+void lift_task() {
+  pros::delay(2000);  // Set EZ-Template calibrate before this function starts running
+  while (true) {
+    set_lift(liftPID.compute(l_lift.get_position()));
+
+    pros::delay(ez::util::DELAY_TIME);
+  }
+}
+
+pros::Task Lift_Task(lift_task);
+
+ void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
   // Boolean for if the shift is spinning
   bool shift_running = true;
 
+  chassis.pid_tuner_enable();  // Enable PID Tuner for opcontrol 11/4/26
+
   while (true) {
     // Gives you some extras to make EZ-Template ezier
   ez_template_extras();
-  
+
   chassis.opcontrol_tank();  // Tank control 8/5/26
     // chassis.opcontrol_arcade_standard(ez::SPLIT);  // Standard split arcade
     // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
@@ -254,6 +286,13 @@ void opcontrol() {
   doinker_opcontrol(); // Piston Control 8/7/26
   doinker_control(); // Claw Control 8/7/26
 
-    pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+  if (master.get_digital_new_press(DIGITAL_X)) {
+    liftPID.target_set(500);
   }
-}
+  else if (master.get_digital_new_press(DIGITAL_B)) {
+    liftPID.target_set(0);
+  }
+
+  pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+  }
+ }
