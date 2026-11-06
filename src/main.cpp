@@ -8,15 +8,15 @@ int lift = true;
 ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
 ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
 
-// Chassis constructor
 ez::Drive chassis (
     // These are your drive motors, the first motor is used for sensing!
     {-7, -6, -9, -8, -10},     // right Chassis Ports (negative port will reverse it!)
-    {4, 5, 2, 3, 1},  // left Chassis Ports (negative port will reverse it!)
+    {4, 15, 2, 16, 1},  // left Chassis Ports (negative port will reverse it!)
 
     20,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
-    600,  // Wheel RPM = cartridge * (motor gear / wheel gear)
+    600  // Wheel RPM = cartridge * (motor gear / wheel gear)
+);
 
 // Uncomment the trackers you're using here!
 // - `8` and `9` are smart ports (making these negative will reverse the sensor)
@@ -24,8 +24,6 @@ ez::Drive chassis (
 // - `2.75` is the wheel diameter
 // - `4.0` is the distance from the center of the wheel to the center of the robot
 
-ez::CompactOdom(&vert_tracker, &horiz_tracker)   // Pointer to vertical tracker  // Pointer to horizontal tracker
-)
   /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
