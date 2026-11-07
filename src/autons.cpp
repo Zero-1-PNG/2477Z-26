@@ -14,13 +14,16 @@ const int SWING_SPEED = 120;
 // Make your own autonomous functions here!
 // . . .
 
+// Trigger the selected autonomous routine
+
 void SoloAWP() {
 
   chassis.drive_imu_reset(); 
   chassis.drive_sensor_reset(); 
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD); 
 
-  
+chassis.pid_drive_set(24_in, 110);
+chassis.pid_wait();
 
 }
 
