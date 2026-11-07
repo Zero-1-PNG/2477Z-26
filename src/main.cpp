@@ -37,10 +37,7 @@ void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
-  l_lift.tare_position();
-  liftPID.exit_condition_set(80, 50, 300, 150, 500, 500);
-
-  pros::delay(500);  // Stop the user from doing anything while legacy ports configure
+  // Stop the user from doing anything while legacy ports configure
 
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
   //  - change `back` to `front` if the tracking wheel is in front of the midline
@@ -119,16 +116,6 @@ void autonomous() {
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
 
-
-  liftPID.target_set(500);
-  // You can do stuff here and it'll happen while the lift moves
-  lift_wait();  // Wait for the lift to reach its target
-
-  pros::delay(1000);
-
-  liftPID.target_set(0);
-  // You can do stuff here and it'll happen while the lift moves
-  lift_wait();  // Wait for the lift to reach its target
 
   /*
   Odometry and Pure Pursuit are not magic
@@ -250,25 +237,12 @@ void ez_template_extras() {
  * task, not resume it from where it left off.
  */
 
-void lift_task() {
-  pros::delay(2000);  // Set EZ-Template calibrate before this function starts running
-  while (true) {
-    set_lift(liftPID.compute(l_lift.get_position()));
-
-    pros::delay(ez::util::DELAY_TIME);
-  }
-}
-
-pros::Task Lift_Task(lift_task);
-
  void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
   // Boolean for if the shift is spinning
   bool shift_running = true;
-
-  chassis.pid_tuner_enable();  // Enable PID Tuner for opcontrol 11/4/26
 
   while (true) {
     // Gives you some extras to make EZ-Template ezier
@@ -283,13 +257,6 @@ pros::Task Lift_Task(lift_task);
   shift_opcontrol(); // shift Control 8/6/26
   doinker_opcontrol(); // Piston Control 8/7/26
   doinker_control(); // Claw Control 8/7/26
-
-  if (master.get_digital_new_press(DIGITAL_X)) {
-    liftPID.target_set(500);
-  }
-  else if (master.get_digital_new_press(DIGITAL_B)) {
-    liftPID.target_set(0);
-  }
 
   pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
