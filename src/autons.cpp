@@ -22,11 +22,11 @@ void SoloAWP() {
   chassis.drive_sensor_reset(); 
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD); 
 
-chassis.pid_drive_set(8_in, 110);
+chassis.pid_drive_set(9_in, 40);
 chassis.pid_wait();
-chassis.pid_turn_set(90_deg, 110);
+chassis.pid_turn_set(90_deg, 100);
 chassis.pid_wait();
-chassis.pid_drive_set(8_in, 110);
+chassis.pid_drive_set(8_in, 50);
 chassis.pid_wait();
 upper_doinker.set(false);
 
