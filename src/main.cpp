@@ -117,15 +117,6 @@ void autonomous() {
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
 
-chassis.pid_drive_set(8_in, 110);
-chassis.pid_wait();
-chassis.pid_turn_set(90_deg, 110);
-chassis.pid_wait();
-chassis.pid_drive_set(8_in, 110);
-chassis.pid_wait();
-upper_doinker.set(false);
-
-
   /*
   Odometry and Pure Pursuit are not magic
 
