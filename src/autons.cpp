@@ -23,8 +23,8 @@ void SoloAWP() {
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD); 
 
 chassis.pid_drive_set(18_in, 80);
+chassis.pid_wait();
 upper_doinker.set(false);
-
 }
 
 void ScoreRingsPlatDown() {
