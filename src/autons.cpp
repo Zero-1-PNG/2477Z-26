@@ -6,9 +6,9 @@
 /////
 
 // These are out of 127
-const int DRIVE_SPEED = 127;
+const int DRIVE_SPEED = 110;
 const int TURN_SPEED = 90;
-const int SWING_SPEED = 120;
+const int SWING_SPEED = 110;
 
 // . . .
 // Make your own autonomous functions here!
@@ -17,13 +17,10 @@ const int SWING_SPEED = 120;
 // Trigger the selected autonomous routine
 
 void SoloAWP() {
-  
-  chassis.drive_imu_reset(); 
-  chassis.drive_sensor_reset(); 
-  chassis.drive_brake_set(MOTOR_BRAKE_HOLD); 
+  chassis.pid_wait();
+  chassis.pid_drive_set(18_in, 80, true); // trying to change the drive to true so it moves
+  chassis.pid_wait();
 
-chassis.pid_drive_set(18_in, 80);
-upper_doinker.set(false);
 
 }
 
