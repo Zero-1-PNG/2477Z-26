@@ -5,9 +5,6 @@
 /////
 int lift = true;
 
-ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
-ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
-
 ez::Drive chassis (
     // These are your drive motors, the first motor is used for sensing!
     {-7, -6, -9, -8, -10},     // right Chassis Ports (negative port will reverse it!)
