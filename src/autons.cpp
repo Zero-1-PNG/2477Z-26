@@ -19,11 +19,7 @@ const int SWING_SPEED = 110;
 void SoloAWP() {
 lower_doinker.set(true);
 chassis.pid_wait();
-
-chassis.pid_drive_set(24_in, 80);
-chassis.pid_wait();
-
-upper_doinker.set(false);
+chassis.pid_drive_set(22_in, 50);
 }
 
 void ScoreRingsPlatDown() {
