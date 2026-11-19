@@ -245,6 +245,31 @@ void ez_template_extras() {
   // Boolean for if the shift is spinning
   bool shift_running = true;
 
+    if (!pros::competition::is_connected()) {
+    master.print(0, 0, "UP:Auton  DN:Drive"); // 11/18/26 changed to UP:Auton DN:Drive for the new RCEF rule
+
+    while (!master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+      if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
+        master.print(0, 0, "RUNNING AUTON...  ");
+
+        pros::Task auton_task(autonomous);
+        pros::delay(14500); // Wait 15 seconds
+        auton_task.remove(); // Stop autonomous
+
+        // Stop all motors
+        chassis.pid_targets_reset();
+        chassis.drive_set(0, 0);
+        left_shift.move(0);
+        right_shift.move(0);
+
+        master.print(0, 0, "DONE! Press DOWN  ");
+      }
+      pros::delay(20);
+    }
+  }
+
+  master.print(0, 0, "DRIVER CONTROL    ");
+
   while (true) {
     // Gives you some extras to make EZ-Template ezier
   ez_template_extras();
@@ -261,4 +286,4 @@ void ez_template_extras() {
 
   pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
- }
+}
