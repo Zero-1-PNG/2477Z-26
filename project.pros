@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "2477Z Pinnacle ",
+    "project_name": "2477Z pin auto",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -424,9 +424,9 @@
       }
     },
     "upload_options": {
-      "description": "made by moss & Matt",
-      "icon": "pizza",
-      "slot": 3
+      "description": "made by matt",
+      "icon": "robot",
+      "slot": 2
     },
     "use_early_access": false
   }
