@@ -6,8 +6,9 @@
 
 ez::Drive chassis (
     // These are your drive motors, the first motor is used for sensing!
-   {-1, -15, -16, -3, -17}, // right Chassis Ports (negative port will reverse it!)
-   {4, 18, 10, 7, 8},  // left Chassis Ports (negative port will reverse it!)
+
+   {-4, -18, -10, -7, -8}, // right Chassis Ports (negative port will reverse it!)
+   {1, 15, 16, 3, 17},  // left Chassis Ports (negative port will reverse it!)
   
     14,      // IMU Port changed it too 17 11/12/26 //IMU Port changed again to 14 11/17/26
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -222,6 +223,7 @@ void ez_template_extras() {
   }
 }
 
+
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -261,3 +263,4 @@ void ez_template_extras() {
   pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }
+
