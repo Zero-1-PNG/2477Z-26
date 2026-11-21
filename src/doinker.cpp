@@ -13,7 +13,7 @@ void doinker_opcontrol() {
   // Left doinker toggles with L1
 if (master.get_digital_new_press(DIGITAL_L1)) {
   lower_doinker.set(!lower_doinker.get());
-} 
+ } 
 }
 
 void doinker_control() {

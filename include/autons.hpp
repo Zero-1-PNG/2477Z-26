@@ -18,6 +18,6 @@ void odom_boomerang_injected_pure_pursuit_example();
 void measure_offsets();
 
 void SoloAWP();
-void ScoreRingsPlatDown();
+void BluesideAuton();
 void NeutralStealPlatDown();
 void NeutralStealPlatUp();
