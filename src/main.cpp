@@ -7,8 +7,8 @@ int lift = true;
 
 ez::Drive chassis (
     // These are your drive motors, the first motor is used for sensing!
-    {-1, -15, -16, -3, -17},     // right Chassis Ports (negative port will reverse it!)
-    {4, 18, 10, 7, 8},  // left Chassis Ports (negative port will reverse it!)
+    {1, 15, 16, 3, 17}, // right Chassis Ports (negative port will reverse it!)
+    {-4, -18, -10, -7, -8},  // left Chassis Ports (negative port will reverse it!)
     
     14,      // IMU Port changed it too 17 11/12/26 //IMU Port changed again to 14 11/17/26
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -66,7 +66,7 @@ void initialize() {
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
     {"Solo AWP\n\nStarting Position: Plat Down", SoloAWP},
-    {"Score Rings on Amogo\n\nStarting Position: Plat Down", ScoreRingsPlatDown},
+    {"Blueside Auton\n\nStarting Position: Plat Down", BluesideAuton},
     {"Neutral Steal\n\nStarting Position: Plat Down", NeutralStealPlatDown},
     {"Neutral Steal\n\nStarting Position: Plat Up", NeutralStealPlatUp},
   });
@@ -116,7 +116,6 @@ void autonomous() {
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-
   /*
   Odometry and Pure Pursuit are not magic
 
@@ -244,32 +243,6 @@ void ez_template_extras() {
 
   // Boolean for if the shift is spinning
   bool shift_running = true;
-
-   if (!pros::competition::is_connected()) {
-    master.print(0, 0, "UP:Auton  DN:Drive"); // 11/18/26 changed to UP:Auton DN:Drive for the new RCEF rule
-
-      while (!master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-        if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
-        master.print(0, 0, "RUNNING AUTON...  ");
-
-        pros::Task auton_task(autonomous);
-        pros::delay(14500); // Wait 15 seconds
-        auton_task.remove(); // Stop autonomous
-
-        // Stop all motors
-        chassis.pid_targets_reset();
-        chassis.drive_set(0, 0);
-        left_shift.move(0);
-        right_shift.move(0);
-
-        master.print(0, 0, "DONE! Press DOWN  ");
-      }
-      pros::delay(20);
-    }
-  }
-  
-  master.print(0, 0, "DRIVER CONTROL    ");
-
 
   while (true) {
     // Gives you some extras to make EZ-Template ezier
