@@ -3,12 +3,11 @@
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
 /////
-int lift = true;
 
 ez::Drive chassis (
     // These are your drive motors, the first motor is used for sensing!
-   {1, 15, 16, 3, 17}, // right Chassis Ports (negative port will reverse it!)
-   {-4, -18, -10, -7, -8},  // left Chassis Ports (negative port will reverse it!)
+   {-1, -15, -16, -3, -17}, // right Chassis Ports (negative port will reverse it!)
+   {4, 18, 10, 7, 8},  // left Chassis Ports (negative port will reverse it!)
   
     14,      // IMU Port changed it too 17 11/12/26 //IMU Port changed again to 14 11/17/26
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -114,7 +113,8 @@ void autonomous() {
   chassis.pid_targets_reset();                // Resets PID targets to 0
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
+  chassis.odom_xyt_set(0_in, 0_in, 0_deg); // Set the current position, you can start at a specific position with this
+  
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
   /*
   Odometry and Pure Pursuit are not magic

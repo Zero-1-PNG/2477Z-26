@@ -18,7 +18,6 @@ const int SWING_SPEED = 110;
 
 void SoloAWP() {
 lower_doinker.set(true);
-chassis.pid_wait();
 chassis.pid_drive_set(-16_in, 80);
 chassis.pid_wait();
 lower_doinker.set(false);
