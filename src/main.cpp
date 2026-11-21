@@ -57,7 +57,7 @@ void initialize() {
   // Set the drive to your own constants from autons.cpp!
 
 
-  // default_constants(); // Sets up the chassis PID and motion constants for the drive system. 8/7/26
+  default_constants(); // Sets up the chassis PID and motion constants for the drive system. 8/7/26
 
 
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
