@@ -18,9 +18,10 @@ const int SWING_SPEED = 110;
 // Trigger the selected autonomous routine
 
 void SoloAWP() {
-lower_doinker.set(true);
-pros::delay (100);
-chassis.pid_drive_set(20_in, 80);
+lower_doinker.set(false);
+chassis.pid_drive_set(20_in, 100);
+chassis.pid_wait();
+chassis.pid_turn_set(-90_deg, 100);
 chassis.pid_wait();
 upper_doinker.set(false);
 }

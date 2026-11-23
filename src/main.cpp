@@ -9,8 +9,8 @@ int lift = true;
 ez::Drive chassis (
     // These are your drive motors, the first motor is used for sensing!
 
-   {-4, -18, -10, -7, -8}, // right Chassis Ports (negative port will reverse it!)
-   {1, 15, 16, 3, 17},  // left Chassis Ports (negative port will reverse it!)
+   {-4, -18, -10, -7}, // right Chassis Ports (negative port will reverse it!)
+   {1, 15, 16, 3},  // left Chassis Ports (negative port will reverse it!)
   
     14,      // IMU Port changed it too 17 11/12/26 //IMU Port changed again to 14 11/17/26
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
