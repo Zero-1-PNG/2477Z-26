@@ -55,9 +55,7 @@ void default_constants() {
 
 void SoloAWP() {
 // lower_doinker.set(false);
-chassis.pid_drive_set(20_in, 100);
-chassis.pid_wait();
-chassis.pid_turn_set(-90_deg, 100);
+chassis.pid_drive_set(18_in, 100);
 chassis.pid_wait();
 upper_doinker.set(false);
 }
