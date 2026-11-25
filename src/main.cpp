@@ -51,7 +51,7 @@ void initialize() {
 
   // Configure your chassis controls
   upper_doinker.set(true);
-  // lower_doinker.set(true);
+  lower_doinker.set(true);
   chassis.opcontrol_curve_buttons_toggle(true);   // Enables modifying the controller curve with buttons on the joysticks
   chassis.opcontrol_drive_activebrake_set(2.0);   // Sets the active brake kP. We recommend ~2.  0 will disable.
   chassis.opcontrol_curve_default_set(2, 1);  // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
@@ -259,7 +259,7 @@ void ez_template_extras() {
     // chassis.opcontrol_arcade_flipped(ez::SINGLE);  // Flipped single arcade\
     
   lifters_opcontrol(); // lift Control 8/6/26
-  // doinker_opcontrol(); // Piston Control 8/7/26
+  doinker_opcontrol(); // Piston Control 8/7/26
   doinker_control(); // Claw Control 8/7/26
 
   pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
