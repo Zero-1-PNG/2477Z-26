@@ -1,13 +1,13 @@
 #include "main.h"
 
-void set_left_input(int shift) {
-  left_shift.move_velocity(shift);
+void set_left_input(int lifters) {
+  left_lifters.move_velocity(lifters);
 }
 
-void set_right_input(int shift) {
-  right_shift.move_velocity(shift);
+void set_right_input(int lifters) {
+  right_lifters.move_velocity(lifters);
 }
-void shift_opcontrol() {
+void lifters_opcontrol() {
   if (master.get_digital(DIGITAL_R1)) {
     set_left_input(115);
     set_right_input(115);

@@ -46,7 +46,7 @@
 // More includes here...
 #include "autons.hpp"
 #include "subsystems.hpp"
-#include "shift.hpp"
+#include "lift.hpp"
 #include "doinker.hpp"
 
 /**
