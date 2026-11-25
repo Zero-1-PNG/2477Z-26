@@ -38,6 +38,9 @@ void initialize() {
   
   pros::delay(100);
 
+  left_lifters.set_brake_mode(MOTOR_BRAKE_HOLD);
+  right_lifters.set_brake_mode(MOTOR_BRAKE_HOLD);
+
   // Stop the user from doing anything while legacy ports configure
 
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
