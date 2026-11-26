@@ -1,3 +1,4 @@
+#include <type_traits>
 #include "main.h"
 
 /////
@@ -53,27 +54,32 @@ void default_constants() {
 
 // Trigger the selected autonomous routine
 
-void SoloAWP() {
-// lower_doinker.set(false);
-chassis.pid_drive_set(18_in, 100);
+void RedLeftAuton() {
+chassis.pid_drive_set(15_in, 100);
 chassis.pid_wait();
+chassis.pid_turn_set(-90_deg, 100);
+chassis.pid_wait();
+left_lifters.move(-70);
+right_lifters.move(-70);
+chassis.pid_drive_set(12.75_in, 100);
+left_lifters.move(0);
+right_lifters.move(0);
+chassis.pid_wait();
+lower_doinker.set(false);
+pros::delay(200);
+}
+
+void BlueLeftAuton() {
+chassis.pid_drive_set(15_in, 100);
 upper_doinker.set(false);
 }
 
-void BluesideAuton() {
-  // . . .
-  // Autonomous code goes here
-  // . . .
+void BlueRightAuton() {
+chassis.pid_drive_set(15_in, 100);
+upper_doinker.set(false);
 }
 
-void NeutralStealPlatDown() {
-  // . . .
-  // Autonomous code goes here
-  // . . .
-}
-
-void NeutralStealPlatUp() {
-  // . . .
-  // Autonomous code goes here
-  // . . .
+void RedRightAuton() {
+chassis.pid_drive_set(15_in, 100);
+upper_doinker.set(false);
 }

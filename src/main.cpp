@@ -70,10 +70,10 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    {"Solo AWP\n\nStarting Position: Plat Down", SoloAWP},
-    {"Blueside Auton\n\nStarting Position: Plat Down", BluesideAuton},
-    {"Neutral Steal\n\nStarting Position: Plat Down", NeutralStealPlatDown},
-    {"Neutral Steal\n\nStarting Position: Plat Up", NeutralStealPlatUp},
+    {"Red Left Auton\n\nStarting Position: Plat Down", RedLeftAuton},
+    {"Blue Left Auton\n\nStarting Position: Plat Down", BlueLeftAuton},
+    {"Red Right Auton\n\nStarting Position: Plat Down", RedRightAuton},
+    {"Blue Right Auton\n\nStarting Position: Plat Down", BlueRightAuton},
   });
 
   // Initialize chassis and auton selector

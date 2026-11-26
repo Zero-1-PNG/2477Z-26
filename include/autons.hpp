@@ -17,7 +17,7 @@ void odom_boomerang_example();
 void odom_boomerang_injected_pure_pursuit_example();
 void measure_offsets();
 
-void SoloAWP();
-void BluesideAuton();
-void NeutralStealPlatDown();
-void NeutralStealPlatUp();
+void RedLeftAuton();
+void BlueLeftAuton();
+void RedRightAuton();
+void BlueRightAuton();
